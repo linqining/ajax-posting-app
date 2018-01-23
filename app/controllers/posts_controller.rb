@@ -10,6 +10,7 @@ class PostsController < ApplicationController
    def destroy
      @post = current_user.posts.find(params[:id]) # 只能删除自己的贴文
      @post.destroy
+     render :json => { :id => @post.id }
    end
    def index
      @posts = Post.order("id DESC").all    # 新贴文放前面
@@ -26,6 +27,10 @@ class PostsController < ApplicationController
     like = @post.find_like(current_user)
     like.destroy
     render "like"
+  end
+
+  def show
+    redirect_to posts_path
   end
 
    protected
