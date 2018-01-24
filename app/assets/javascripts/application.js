@@ -14,4 +14,5 @@
 
 //= require jquery
 //= require bootstrap
+//= require jquery.raty
 //= require_tree .
