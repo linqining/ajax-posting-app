@@ -11,6 +11,5 @@ Rails.application.routes.draw do
         post "unlike" => "posts#unlike"
       end
     end
-
     root "posts#index"
 end
