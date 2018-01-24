@@ -10,7 +10,6 @@ class PostsController < ApplicationController
    def destroy
      @post = current_user.posts.find(params[:id]) # 只能删除自己的贴文
      @post.destroy
-     render :json => { :id => @post.id }
    end
    def index
     @posts = Post.order("id DESC").limit(20)
@@ -24,6 +23,12 @@ class PostsController < ApplicationController
       format.js    # 如果客户端要求 JavaScript，回传 index.js.erb
     end
    end
+    def update
+    sleep(1)
+    @post = Post.find(params[:id])
+    @post.update!( post_params )
+    render :json => { :id => @post.id, :message => "ok"}
+    end
      def like
     @post = Post.find(params[:id])
     unless @post.find_like(current_user)  # 如果已经按讚过了，就略过不再新增
@@ -54,6 +59,7 @@ class PostsController < ApplicationController
    protected
 
    def post_params
-     params.require(:post).permit(:content)
+     params.require(:post).permit(:content, :category_id)
+
    end
 end
